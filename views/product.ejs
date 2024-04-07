@@ -1,0 +1,45 @@
+<%- include("partials/header.ejs") -%>
+
+<div class="container py-5">
+	<div class="row">
+		<div class="card d-flex  g-5 justify-content-center">
+			<div class="col-md-6 " style="max-height: 50vh; overflow: hidden;">
+				<img
+					src="<%= item.thumbnail %>"
+					class=" card-img "
+					alt="iPhone 9"
+					style="max-height: 50vh; overflow: hidden;""
+					
+				/>
+			</div>
+			<div class="col-md-6 ">
+				<h2 class="fw-bold card-title"><%= item.title %></h2>
+				<p class="lead"><%= item.description %></p>
+				<h3 class="text-success">$<%= item.price %></h3>
+				<p class="text-decoration-line-through text-danger">Discount:<%= item.discountPercentage %>%</p>
+				<p class="lead">Rating: <%= item.rating %></p>
+				<p class="lead">In Stock: <%= item.stock %></p>
+				<p class="lead">Brand: <%= item.brand %></p>
+				<p class="lead">Category: <%= item.category %></p>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-5">
+		<div class="col">
+			<h3 class="fw-bold mb-4">Thumbnail Images</h3>
+			<div class="row">
+				<% item.images.forEach(img=>{ %>
+					<div class="col-md-2 mb-3 d-flex flex-grow">
+						<img
+							src= <%= img %>
+							class="img-thumbnail"
+							alt="Thumbnail 1"
+						/>
+					</div>
+				<% }) %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- include("partials/footer.ejs") %>
