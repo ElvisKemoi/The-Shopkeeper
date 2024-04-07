@@ -32,9 +32,9 @@
         <li><strong>Screenshot 1:</strong> Placeholder for Home Page</li>
          <img src="/screenshots/Screenshot 2024-04-07 173503.png" alt="Screenshot 1"> 
         <li><strong>Screenshot 2:</strong> Placeholder for Product Page</li>
-         <img src="" alt="/screenshots/Screenshot 2024-04-07 173521.png"> 
+         <img src="/screenshots/Screenshot 2024-04-07 173521.png" alt="Screenshot 2"> -->
         <li><strong>Screenshot 3:</strong> Placeholder for Checkout Page</li>
-         <img src="/screenshots/Screenshot 2024-04-07 173554.png" alt="Screenshot 3"> 
+        <img src="/screenshots/Screenshot 2024-04-07 173554.png" alt="Screenshot 3">
     </ol>
     <h2>Installation:</h2>
     <ol>
