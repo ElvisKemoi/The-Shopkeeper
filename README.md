@@ -39,7 +39,7 @@
     <h2>Installation:</h2>
     <ol>
         <li>Clone the repository:
-            <pre>git clone https://github.com/Elvis-Kemoi/e-commerce.git</pre>
+            <pre>git clone https://github.com/ElvisKemoi/e-commerce.git</pre>
         </li>
         <li>Install dependencies:
             <pre>npm install</pre>
