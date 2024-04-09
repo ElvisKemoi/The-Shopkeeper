@@ -1,9 +1,3 @@
-/*!
- * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
- * Copyright 2011-2023 The Bootstrap Authors
- * Licensed under the Creative Commons Attribution 3.0 Unported License.
- */
-
 (() => {
 	"use strict";
 
@@ -26,7 +20,7 @@
 			theme === "auto" &&
 			window.matchMedia("(prefers-color-scheme: dark)").matches
 		) {
-			document.documentElement.setAttribute("data-bs-theme", "dark");
+			document.documentElement.setAttribute("arr-bs-theme", "dark");
 		} else {
 			document.documentElement.setAttribute("data-bs-theme", theme);
 		}
@@ -91,9 +85,82 @@
 
 // Truncate string
 
-async function truncateString(str, maxLength) {
+function truncateString(str, maxLength) {
 	if (str.length > maxLength) {
 		return str.slice(0, maxLength - 3) + "...";
 	}
 	return str;
+}
+// Cart
+let currentCarts = []; // Use let instead of const since currentCarts is being modified
+const allCarts = document.querySelectorAll(".bx-cart-add");
+const cartItems = document.getElementById("cartItem");
+
+allCarts.forEach((cart) =>
+	cart.addEventListener("click", () => {
+		cart.classList.toggle("carted");
+
+		let toAdd = cart.id.split(",");
+		let dictionary = {}; // Initialize an empty dictionary
+
+		let valueToCheck = toAdd[0]; // Value to check
+
+		let isPresent = currentCarts.some((dictionary) => {
+			return Object.values(dictionary).includes(valueToCheck);
+		});
+
+		if (isPresent) {
+			currentCarts = currentCarts.filter(
+				(dictionary) => !Object.values(dictionary).includes(toAdd[0])
+			);
+			// updateList(currentCarts);
+
+			console.log(`${valueToCheck} removed from the array.`);
+		} else {
+			let keys = ["id", "title", "price"];
+			let i = 0;
+			toAdd.forEach((item, index) => {
+				let key = keys[i];
+				i++; // Create a key for each item (e.g., key1, key2, key3, ...)
+				dictionary[key] = item; // Assign the item to the key in the dictionary
+			});
+
+			currentCarts.push(dictionary);
+			// console.table(dictionary);
+			console.log(`${valueToCheck} added to the array.`);
+		}
+		setCartHeaders(currentCarts);
+		updateCartList(currentCarts);
+	})
+);
+
+function setCartHeaders(arr) {
+	if (arr.length !== 0) {
+		let headers = Object.keys(arr[0]);
+		document.getElementById("itemId").innerHTML = headers[0];
+		document.getElementById("itemTitle").innerHTML = headers[1];
+		document.getElementById("itemPrice").innerHTML = headers[2] + "Ksh";
+	} else {
+		document.getElementById("itemId").innerHTML = "";
+		document.getElementById("itemTitle").innerHTML = "";
+		document.getElementById("itemPrice").innerHTML = "";
+	}
+}
+
+function updateCartList(arr) {
+	let concat = "";
+
+	arr.forEach((dict) => {
+		concat =
+			concat +
+			"<tr><td>" +
+			truncateString(dict.id, 3) +
+			"</td><td>" +
+			dict.title +
+			"</td><td>" +
+			dict.price +
+			"</td></tr>";
+	});
+	document.getElementById("cartItems").innerHTML = concat;
+	console.log("Done");
 }

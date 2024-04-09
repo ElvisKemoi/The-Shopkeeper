@@ -1,100 +1,110 @@
 <%- include("partials/header.ejs") -%> <%- include("partials/signin.ejs") -%>
+<%function truncateDescription(description, maxLength) { if (description.length>
+maxLength) { return description.substring(0, maxLength) + '...'; } else { return
+description; } } %>
 
-<div class="album py-5 bg-body-tertiary">
-	<div class="container">
-		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
-			<% for(let i = 0; i < products.length; i++) { %>
-			<div class="col ">
-	
-						<div class="card border-0 shadow-sm">
-							<div class="rounded" style="height: 20rem; overflow: hidden">
-								<img src="<%= products[i].thumbnail %>" alt="Thumbnail" />
-							</div>
-							<h4 class="card-title px-2 pt-1"><%= products[i].title %></h4>
-							<div class="card-body">
-								<h4 class="">$<u><%= products[i].price %></u></h4>
-		
-								<p class="card-text"><%= products[i].description %></p>
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="btn-group">
-										<!-- <button type="button" class="btn btn-sm btn-outline-secondary">View</button> -->
-										<div class="dropdown">
-											<button
-												class="btn btn-outline-primary dropdown-toggle"
-												type="button"
-												data-bs-toggle="dropdown"
-												aria-expanded="false"
-											>
-												Actions
-											</button>
-											<ul class="dropdown-menu list-unstyled mb-0">
-												<li>
-													<form
-														action="/product/<%= products[i]._id  %>"
-														method="get"
-													>
-														<button
-															type="submit"
-															class="dropdown-item d-flex align-items-center gap-2 py-2"
-														>
-															<span
-																class="d-inline-block bg-primary rounded-circle p-1"
-															></span>
-		
-															View
-														</button>
-													</form>
-												</li>
-												<li>
-													<form action="/edit/<%= products[i]._id  %>" method="get">
-														<button
-															type="submit"
-															class="dropdown-item d-flex align-items-center gap-2 py-2"
-														>
-															<span
-																class="d-inline-block bg-primary rounded-circle p-1"
-															></span>
-		
-															Edit
-														</button>
-													</form>
-												</li>
-												<li>
-													<a
-														class="dropdown-item d-flex align-items-center gap-2 py-2"
-														href="#"
-													>
-														<span
-															class="d-inline-block bg-info rounded-circle p-1"
-														></span>
-														Add to favourites
-													</a>
-												</li>
-												<li>
-													<a
-														class="dropdown-item d-flex align-items-center gap-2 py-2"
-														href="#"
-													>
-														<span
-															class="d-inline-block bg-danger rounded-circle p-1"
-														></span>
-														Delete
-													</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<small class="text-muted">
-										<%= products[i].stock %> Remaining
-									</small>
-								</div>
-							</div>
-						</div>
-				
+<!-- Start -->
+
+<section id="cartButton" class="navbar py-0 my-0">
+	<button
+		class="btn btn-outline-primary ms-auto"
+		type="button"
+		data-bs-toggle="offcanvas"
+		data-bs-target="#offcanvasWithBothOptions"
+		aria-controls="offcanvasWithBothOptions"
+	>
+		<i class="bx bx-cart-alt fs-1"></i>
+	</button>
+
+	<div
+		class="offcanvas offcanvas-end rounded-start"
+		data-bs-scroll="true"
+		tabindex="-1"
+		id="offcanvasWithBothOptions"
+		aria-labelledby="offcanvasWithBothOptionsLabel"
+	>
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+				My Cart
+			</h5>
+			<button
+				type="button"
+				class="btn-close"
+				data-bs-dismiss="offcanvas"
+				aria-label="Close"
+			></button>
+		</div>
+		<div class="offcanvas-body">
+			<div class="card" style="width: 100%">
+				<table id="cartTable" class="tablet able-striped-columns">
+					<thead>
+						<tr id="cartTableHeaed">
+							<th id="itemId"></th>
+							<th id="itemTitle"></th>
+							<th id="itemPrice"></th>
+							<th id="itemQuantity"></th>
+						</tr>
+					</thead>
+					<tbody id="cartItems"></tbody>
+				</table>
 			</div>
-			<% } %>
 		</div>
 	</div>
-</div>
+</section>
+<section id="houses" class="houses py-3">
+	<div
+		class="row mx-auto container g-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2"
+	>
+		<% for(let j = 0; j < products.length; j++) { %>
+
+		<div class="col">
+			<div
+				class="card border-0 shadow-md expand-lg"
+				data-bs-toggle="tooltip"
+				data-bs-placement="bottom"
+				title="Click to view listing."
+			>
+				<div id="imageArea">
+					<i
+						id="<%= products[j]._id %>,<%= products[j].title%>,<%= products[j].price %>"
+						data-bs-toggle="tooltip"
+						data-bs-placement="bottom"
+						title="Add to Card"
+						class="bx bx-cart-add heart-icon display-4 rounded-circle m-2 p-1"
+					></i>
+					<img
+						style="height: 10rem"
+						src="<%= products[j].thumbnail %>"
+						class="card-img-top"
+						alt="Thumbnail"
+					/>
+				</div>
+				<div class="card-body">
+					<div class="card-title fw-bold fs-4 lh-1">
+						<%=products[j].title %>
+					</div>
+					<div class="card-body">
+						<div class="col price mb-1 w-50 text-nowrap">
+							Ksh<span class="fw-bold fs-4 px-2" id="price"
+								><%= products[j].price %></span
+							>
+						</div>
+						<form action="/product/<%= products[j]._id  %>" method="get">
+							<button class="btn btn-outline-primary" type="submit">
+								More Info
+							</button>
+						</form>
+					</div>
+					<div id="description" class="card-footer overflow-hidden">
+						<%= products[j].description %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% }; %>
+	</div>
+</section>
+
+<!-- End -->
 
 <%- include("partials/footer.ejs") -%>
