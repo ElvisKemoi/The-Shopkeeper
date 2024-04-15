@@ -5,19 +5,9 @@ description; } } %>
 
 <!-- Start -->
 
-<section id="cartButton" class="navbar py-0 my-0">
-	<button
-		class="btn btn-outline-primary ms-auto"
-		type="button"
-		data-bs-toggle="offcanvas"
-		data-bs-target="#offcanvasWithBothOptions"
-		aria-controls="offcanvasWithBothOptions"
-	>
-		<i class="bx bx-cart-alt fs-1"></i>
-	</button>
-
+<section class="navbar py-0 my-0">
 	<div
-		class="offcanvas offcanvas-end rounded-start"
+		class="offcanvas offcanvas-end rounded-start w-auto px-2"
 		data-bs-scroll="true"
 		tabindex="-1"
 		id="offcanvasWithBothOptions"
@@ -35,23 +25,43 @@ description; } } %>
 			></button>
 		</div>
 		<div class="offcanvas-body">
-			<div class="card" style="width: 100%">
-				<table id="cartTable" class="tablet able-striped-columns">
-					<thead>
+			<div class="card">
+				<table
+					id="cartTable"
+					class="table table-striped table-border table-hover"
+				>
+					<thead class="mx-1">
 						<tr id="cartTableHeaed">
-							<th id="itemId"></th>
 							<th id="itemTitle"></th>
 							<th id="itemPrice"></th>
-							<th id="itemQuantity"></th>
+							<th id="quantity">Quantity</th>
+							<th id="itemTotals">Item Totals</th>
 						</tr>
 					</thead>
 					<tbody id="cartItems"></tbody>
+
+					<tr id="cartFoot"></tr>
 				</table>
 			</div>
 		</div>
 	</div>
 </section>
 <section id="houses" class="houses py-3">
+	<div
+		id="cartButtonContainer"
+		class="d-flex position-sticky top-0 end-0 w-auto"
+	>
+		<button
+			id="cartButton"
+			class="btn ms-auto btn-outline-primary rounded-circle"
+			type="button"
+			data-bs-toggle="offcanvas"
+			data-bs-target="#offcanvasWithBothOptions"
+			aria-controls="offcanvasWithBothOptions"
+		>
+			<i class="bx bx-cart-alt display-2"></i>
+		</button>
+	</div>
 	<div
 		class="row mx-auto container g-4 row-cols-lg-4 row-cols-md-3 row-cols-sm-2"
 	>
@@ -66,7 +76,7 @@ description; } } %>
 			>
 				<div id="imageArea">
 					<i
-						id="<%= products[j]._id %>,<%= products[j].title%>,<%= products[j].price %>"
+						id="<%=products[j]._id%>,<%=products[j].title%>,<%=products[j].price%>"
 						data-bs-toggle="tooltip"
 						data-bs-placement="bottom"
 						title="Add to Card"

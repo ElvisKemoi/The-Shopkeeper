@@ -131,17 +131,28 @@ allCarts.forEach((cart) =>
 		}
 		setCartHeaders(currentCarts);
 		updateCartList(currentCarts);
+		console.table(currentCarts);
+		addSubmitButton();
 	})
 );
+
+function addSubmitButton() {
+	console.log(document.getElementById("cartItems").innerHTML === "");
+	if (document.getElementById("cartItems").innerHTML === "") {
+		document.getElementById("cartFoot").innerHTML = "";
+	} else if (document.getElementById("cartItems").innerHTML !== "") {
+		document.getElementById("cartFoot").innerHTML =
+			"<td colspan='3'><button class='btn btn-oultline-primary' type='submit'>Submit</button></form></td>";
+	}
+}
 
 function setCartHeaders(arr) {
 	if (arr.length !== 0) {
 		let headers = Object.keys(arr[0]);
-		document.getElementById("itemId").innerHTML = headers[0];
 		document.getElementById("itemTitle").innerHTML = headers[1];
-		document.getElementById("itemPrice").innerHTML = headers[2] + "Ksh";
+		document.getElementById("itemPrice").innerHTML =
+			"Unit " + headers[2] + "(Ksh)";
 	} else {
-		document.getElementById("itemId").innerHTML = "";
 		document.getElementById("itemTitle").innerHTML = "";
 		document.getElementById("itemPrice").innerHTML = "";
 	}
@@ -149,18 +160,31 @@ function setCartHeaders(arr) {
 
 function updateCartList(arr) {
 	let concat = "";
-
+	let l = 0;
 	arr.forEach((dict) => {
 		concat =
 			concat +
 			"<tr><td>" +
-			truncateString(dict.id, 3) +
-			"</td><td>" +
 			dict.title +
 			"</td><td>" +
 			dict.price +
-			"</td></tr>";
+			"</td><td><form  ><input class='increment' type='number' id='quantity' style='width: 3rem'  name='quantity' value='1' min='1'></td><td id= 'itemTotal'></td></tr>";
+		l++;
 	});
+
 	document.getElementById("cartItems").innerHTML = concat;
 	console.log("Done");
+	updateItemTotals();
+}
+
+function updateItemTotals() {
+	document.querySelectorAll(".increment").forEach((item) => {
+		item.addEventListener("change", () => {
+			console.log(item.value);
+		});
+	});
+	// console.log(
+	// 	document.getElementById("itemTotal").previousElementSibling.children[0]
+	// 		.children[0].value
+	// );
 }

@@ -1,11 +1,9 @@
-
 :root {
 	--color-1: #05445e;
 	--color-2: #189ab4;
 	--color-3: #75e6da;
 	--color-4: #d4f1f4;
-	--font2: "Poppins", sans-serif;
-	--font1: "Montserrat", sans-serif;
+
 	--trans: 0.2s ease-in;
 	--white: #fff;
 	--black: #000;
@@ -15,7 +13,6 @@
 .houses {
 	/* background-color: var(--color-4); */
 	min-height: 100vh;
-	
 }
 
 /* Card  */
@@ -23,6 +20,8 @@
 	cursor: pointer;
 	transition: var(--trans);
 	box-shadow: 0 0 2px var(--black);
+	text-wrap: nowrap;
+	overflow: hidden;
 }
 
 .card:hover {
@@ -41,15 +40,13 @@
 	min-width: 50%;
 }
 
-
 .card-footer {
 	height: 4vh;
 	min-width: 50%;
-
 }
 
 #price {
-	color: var(--color-3);
+	color: var(--color-1);
 }
 
 #title {
@@ -96,9 +93,13 @@
 	background-color: var(--color-4);
 }
 
-
 .carted {
 	color: var(--color-1);
 	background-color: red;
 	transform: scale(1.15);
+}
+
+#cartButton,
+#cartButtonContainer {
+	z-index: 1000;
 }
